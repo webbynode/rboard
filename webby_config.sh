@@ -7,7 +7,7 @@ cd sphinx-0.9.8.1
 ./configure && make && sudo make install
 cd ..
 rm -fR sphinx-0.9.8.1
-rm sphinx-0.9.8.1.tar.gx
+rm sphinx-0.9.8.1.tar.gz
 
 echo WC_DB_ENGINE=${WC_DB_ENGINE}
 

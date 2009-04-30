@@ -1,13 +1,11 @@
 gem install rails --no-rdoc --no-ri
-gem install cucumber --no-rdoc --no-ri
+gem install cucumber RedCloth highline --no-rdoc --no-ri
 
 wget http://sphinxsearch.com/downloads/sphinx-0.9.8.1.tar.gz
 tar xzf sphinx-0.9.8.1.tar.gz
 cd sphinx-0.9.8.1
 ./configure && make && sudo make install
 cd ..
-rm -fR sphinx-0.9.8.1
-rm sphinx-0.9.8.1.tar.gz
 
 echo WC_DB_ENGINE=${WC_DB_ENGINE}
 
@@ -39,6 +37,10 @@ production:
 " >> config/database.yml
 fi
 
-rake install
+rake install << EOF
+admin
+${WC_DB_PASSWORD}
+you@example.com
+EOF
 
 chown www-data log

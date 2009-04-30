@@ -1,4 +1,5 @@
 gem install rails --no-rdoc --no-ri
+gem install cucumber --no-rdoc --no-ri
 
 wget http://sphinxsearch.com/downloads/sphinx-0.9.8.1.tar.gz
 mv sphinx-0.9.8.1.tar.gz sphinx.tar.gz
@@ -8,8 +9,6 @@ cd sphinx
 cd ..
 rm -fR sphinx
 rm sphinx*.*
-
-rake install
 
 echo WC_DB_ENGINE=${WC_DB_ENGINE}
 
@@ -40,5 +39,7 @@ production:
   port: 5432
 " >> config/database.yml
 fi
+
+rake install
 
 chown www-data log

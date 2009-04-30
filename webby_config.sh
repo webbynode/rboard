@@ -1,8 +1,8 @@
 gem install rails --no-rdoc --no-ri
 
 wget http://sphinxsearch.com/downloads/sphinx-0.9.8.1.tar.gz
-mv sphinx-0.9.8.1.tar.gz sphinx.tar.gx
-tar xzf sphinx.tar.gx
+mv sphinx-0.9.8.1.tar.gz sphinx.tar.gz
+tar xzf sphinx.tar.gz
 cd sphinx
 ./configure && make && sudo make install
 cd ..

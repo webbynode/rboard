@@ -2,13 +2,12 @@ gem install rails --no-rdoc --no-ri
 gem install cucumber --no-rdoc --no-ri
 
 wget http://sphinxsearch.com/downloads/sphinx-0.9.8.1.tar.gz
-mv sphinx-0.9.8.1.tar.gz sphinx.tar.gz
-tar xzf sphinx.tar.gz
-cd sphinx
+tar xzf sphinx-0.9.8.1.tar.gz
+cd sphinx-0.9.8.1
 ./configure && make && sudo make install
 cd ..
-rm -fR sphinx
-rm sphinx*.*
+rm -fR sphinx-0.9.8.1
+rm sphinx-0.9.8.1.tar.gx
 
 echo WC_DB_ENGINE=${WC_DB_ENGINE}
 

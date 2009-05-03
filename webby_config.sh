@@ -1,6 +1,8 @@
 gem install rails --no-rdoc --no-ri
 gem install cucumber RedCloth highline --no-rdoc --no-ri
 
+sudo apt-get -y install libmysqlclient15-dev
+
 wget http://sphinxsearch.com/downloads/sphinx-0.9.8.1.tar.gz
 tar xzf sphinx-0.9.8.1.tar.gz
 cd sphinx-0.9.8.1

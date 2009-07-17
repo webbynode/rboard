@@ -1,13 +1,18 @@
-gem install rails --no-rdoc --no-ri
-gem install cucumber RedCloth highline --no-rdoc --no-ri
+OPWD=$PWD
 
-sudo apt-get -y install libmysqlclient15-dev
+cd ~
+apt-get -y install libmysqlclient15-dev
 
 wget http://sphinxsearch.com/downloads/sphinx-0.9.8.1.tar.gz
 tar xzf sphinx-0.9.8.1.tar.gz
 cd sphinx-0.9.8.1
-./configure && make && sudo make install
+./configure && make && make install
 cd ..
+
+cd $OPWD
+
+gem install rails --no-rdoc --no-ri
+gem install cucumber RedCloth highline --no-rdoc --no-ri
 
 echo WC_DB_ENGINE=${WC_DB_ENGINE}
 
@@ -18,7 +23,6 @@ login: &login
   username: ${WC_APP_NAME}
   password: ${WC_DB_PASSWORD}
   host: localhost
-  
 " > config/database.yml
  
 if [ "${WC_DB_ENGINE}" == "mysql" ]; then
@@ -39,7 +43,7 @@ production:
 " >> config/database.yml
 fi
 
-rake install << EOF
+RAILS_ENV=production rake install << EOF
 admin
 ${WC_DB_PASSWORD}
 you@example.com

@@ -3,7 +3,7 @@ OPWD=$PWD
 cd ~
 apt-get -y install libmysqlclient15-dev
 
-wget http://sphinxsearch.com/downloads/sphinx-0.9.8.1.tar.gz
+wget http://repo.webbynode.com/apps/sphinx/sphinx-0.9.8.1.tar.gz
 tar xzf sphinx-0.9.8.1.tar.gz
 cd sphinx-0.9.8.1
 

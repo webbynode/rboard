@@ -5,7 +5,7 @@ module Rboard::Login
       redirect_back_or_default(forums_path) and return false
     end
     return unless request.post?
-    self.current_user = User.authenticate(params[:login], params[:password])
+    self.current_user = @user = User.authenticate(params[:login], params[:password])
     if logged_in?    
       # #remember_me calls save internally, so don't bother saving it twice
       if params[:remember_me] == "1"
@@ -40,8 +40,7 @@ module Rboard::Login
     redirect_to('login') and return false unless logged_in?
     self.current_user.forget_me if logged_in?
     cookies.delete :auth_token
-    logger.debug(session.inspect)
-    session[:user_id] = nil
+    session[:user] = nil
     flash[:notice] = t(:you_have_been_logged_out)
     redirect_to(forums_path)
   end

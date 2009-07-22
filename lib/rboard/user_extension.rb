@@ -43,10 +43,18 @@ module Rboard::UserExtension
 
       before_create :encrypt_password
       before_create :set_theme
-      before_create :set_user_level
+      before_create :set_permissions
       before_save :set_permalink
       
+      attr_protected :identifier
+      
       attr_accessor :password
+      
+      if SEARCHING
+        define_index do
+          indexes login, email, display_name
+        end if User.table_exists?
+      end
       
       def set_permalink
         self.permalink = to_s.parameterize
@@ -60,7 +68,7 @@ module Rboard::UserExtension
         output = display_name unless display_name.blank?
         output ||= login
       end
-
+      
       def to_param
         to_s.parameterize
       end
@@ -70,15 +78,6 @@ module Rboard::UserExtension
         rank = Rank.find_by_id(rank_id)
     	  rank ||= Rank.for_user(self)
     	  rank.nil? ? '' : rank.name
-      end
-
-      #permission checking 
-      def set_user_level
-        self.user_level = if User.count == 0
-          UserLevel.find_by_name("Administrator")
-        else
-          UserLevel.find_by_name("User")
-        end
       end
       
       def user?
@@ -95,6 +94,16 @@ module Rboard::UserExtension
       
       def online?
         !!(login_time && login_time > Time.now - 15.minutes)
+      end
+      
+      private
+      
+      def set_permissions
+        # HACK
+        # puts Group.all.inspect
+        if !User.count.zero? && login != "anonymous"
+          groups << Group.find_by_identifier("registered_users")
+        end
       end
     end
   end

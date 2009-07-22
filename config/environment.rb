@@ -1,7 +1,7 @@
+require 'config/migration_hack'
 # Be sure to restart your web server when you modify this file.
 # Uncomment this to force production mode.
-ENV['RAILS_ENV'] = 'development'
-
+# ENV['RAILS_ENV'] = 'development'
 RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
 
 require File.join(File.dirname(__FILE__), 'boot')
@@ -13,23 +13,10 @@ end
 if File.readlines(database).empty?
   raise "Your database.yml file is empty. Please add your database information."
 end
-Rails::Initializer.run do |config|
-  
-  config.gem 'chronic'
-  config.gem 'RedCloth'
-  config.gem 'highline'
-  
-  # lol actionwebservice
-  config.frameworks -= [:action_web_service]
-  
-  config.action_controller.session = { :session_key => "rboard_secret", :secret => "this is a super secret passphrase that protects rboard" }
-  
-  config.active_record.default_timezone = :utc
-  config.time_zone = "UTC"
-  
-end
-# Application specific variables
+
+# Application specific variables MUST be set before the initializer is ran.
 # Standard settings for rboard.
+
 # Display 25 items per page.
 PER_PAGE = 25
 
@@ -49,7 +36,26 @@ THEMES_DIRECTORY = File.join(RAILS_ROOT, "public", "themes")
 STANDALONE = true
 
 ## Set this to false if you don't want to use thinking sphinx.
-THINKING_SPHINX = true
+SEARCHING = true
+
+
+CONFIG = Rails::Initializer.run do |config|
+  
+  config.gem 'chronic'
+  config.gem 'RedCloth'
+  config.gem 'highline'
+  config.gem 'textpow'
+  config.gem 'ultraviolet', :lib => "uv"
+  
+  # lol actionwebservice
+  config.frameworks -= [:action_web_service]
+  
+  config.action_controller.session = { :session_key => "rboard_secret", :secret => "this is a super secret passphrase that protects rboard" }
+  
+  config.active_record.default_timezone = :utc
+  config.time_zone = "UTC"
+  
+end
 
 # Change this if your locale is not english
 # I18n.default_locale = "en"

@@ -8,7 +8,6 @@ config.cache_classes = true
 
 # Log error messages when you accidentally call methods on nil.
 config.whiny_nils = true
-
 # Show full error reports and disable caching
 config.action_controller.consider_all_requests_local = true
 config.action_controller.perform_caching             = false
@@ -17,5 +16,9 @@ config.action_controller.perform_caching             = false
 # The :test delivery method accumulates sent emails in the
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test
+
+config.gem "faker"
+config.gem "cucumber"
+config.gem "notahat-machinist", :lib => "machinist"
 
 TIME_BETWEEN_POSTS = 0

@@ -14,6 +14,11 @@ describe TopicsController do
     { :forum_id => @everybody.id, :id => @everybody_topic.id }
   end
   
+  it "should go to the forum show action" do
+    get 'index', :forum_id => @everybody.id
+    response.should redirect_to(forum_path(@everybody))
+  end
+  
   describe "as a plebian" do
     before do
       login_as(:plebian)
@@ -132,13 +137,13 @@ describe TopicsController do
     
     it "should be able to create a topic" do
       post 'create', { :forum_id => @admin_forum.id, :topic => { :subject => "Testing"}, :post => { :text => "1, two, free" } }
-      flash[:notice].should eql(t(:created, :thing => "topic"))
+      flash[:notice].should eql(t(:created, :thing => "Topic"))
     end
     
     it "should not be able to create a topic with invalid data" do
       post 'create', { :forum_id => @admin_forum.id, :topic => { :subject => ""}, :post => { :text => "1, two, free" } }
       response.should render_template("new")
-      flash[:notice].should eql(t(:not_created, :thing => "topic"))
+      flash[:notice].should eql(t(:not_created, :thing => "Topic"))
     end
     
     it "should be able to see a topic in the free-for-all forum" do
